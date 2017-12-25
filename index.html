@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="twittler.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Codystar' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Delius Unicase' rel='stylesheet'>
   </head>
+  <title>Twittler</title>
   <body>
+    <h1>Twittler</h1>
+     <a href="#" class="refresh">Refresh Tweets</a>
+    
+     <ul id ="users"></u1>
+  
+     <ul id ="tweets"></ul>
     <script>
-
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
+        var $tweetBody = $('#tweets');
+        var $userList = $('#users');
+        for (var i = 0; i < users.length; i++) {
+          var $user = $('<button class="user"></button>');
+          $user.text(users[i]);
+          $userList.prepend($user);
         }
+        $userList.prepend($('<button class="home">Home</button>'))
+      
+        var updateTweets = function() {
+          var index = 0;
+          while(index < streams.home.length){
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            if (tweet !== undefined) {
+              $tweet.text('@' + tweet.user + ': ' + tweet.message + '  [' +  tweet.created_at + ']');
+              $tweetBody.prepend($tweet);
+              index += 1;
+            }
+          }
+        }
+        updateTweets();
+       
+        $('.refresh').on('click', function() {
+          updateTweets();
+        });
 
+        $('.refresh').hover(function(){
+          $(this).css("background-color", '#47d1d1');
+          }, function(){
+          $(this).css("background-color", '#2eb8b8');
+        });
+        $('.user').on('click', function() {
+          var name = $(this).text();
+          $tweetBody.html('');
+          for (var i = 0; i < streams.home.length; i++) {
+            var tweet = streams.home[i];
+            if (tweet.user === name) {
+              var $tweet = $('<div></div>');
+              $tweet.text('@' + tweet.user + ': ' + tweet.message + '  [' +  tweet.created_at + ']');
+              $tweetBody.prepend($tweet);
+            }
+          }
+        });
+        $('.home').on('click', function() {
+          $tweetBody.html('');
+          updateTweets();
+        });
       });
-
     </script>
   </body>
 </html>
