@@ -6,66 +6,16 @@
     <script src="data_generator.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Codystar' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Delius Unicase' rel='stylesheet'>
+    <script src="moment.min.js"></script>
   </head>
   <title>Twittler</title>
   <body>
     <h1>Twittler</h1>
-     <a href="#" class="refresh">Refresh Tweets</a>
+    <a href="#" class="refresh">Refresh Tweets</a>
     
-     <ul id ="users"></u1>
-  
-     <ul id ="tweets"></ul>
-    <script>
-      $(document).ready(function(){
-        var $tweetBody = $('#tweets');
-        var $userList = $('#users');
-        for (var i = 0; i < users.length; i++) {
-          var $user = $('<button class="user"></button>');
-          $user.text(users[i]);
-          $userList.prepend($user);
-        }
-        $userList.prepend($('<button class="home">Home</button>'))
-      
-        var updateTweets = function() {
-          var index = 0;
-          while(index < streams.home.length){
-            var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
-            if (tweet !== undefined) {
-              $tweet.text('@' + tweet.user + ': ' + tweet.message + '  [' +  tweet.created_at + ']');
-              $tweetBody.prepend($tweet);
-              index += 1;
-            }
-          }
-        }
-        updateTweets();
-       
-        $('.refresh').on('click', function() {
-          updateTweets();
-        });
-
-        $('.refresh').hover(function(){
-          $(this).css("background-color", '#47d1d1');
-          }, function(){
-          $(this).css("background-color", '#2eb8b8');
-        });
-        $('.user').on('click', function() {
-          var name = $(this).text();
-          $tweetBody.html('');
-          for (var i = 0; i < streams.home.length; i++) {
-            var tweet = streams.home[i];
-            if (tweet.user === name) {
-              var $tweet = $('<div></div>');
-              $tweet.text('@' + tweet.user + ': ' + tweet.message + '  [' +  tweet.created_at + ']');
-              $tweetBody.prepend($tweet);
-            }
-          }
-        });
-        $('.home').on('click', function() {
-          $tweetBody.html('');
-          updateTweets();
-        });
-      });
-    </script>
+    <ul id ="users"></u1>
+    <h1> </h1>
+    <ul id ="tweets"></ul>
+    <script src='app.js'></script>
   </body>
 </html>
